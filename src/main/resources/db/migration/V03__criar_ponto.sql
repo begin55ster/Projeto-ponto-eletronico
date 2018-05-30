@@ -15,5 +15,18 @@ CREATE TABLE ponto (
     FOREIGN KEY (id_funcionario) REFERENCES funcionario(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
 INSERT INTO ponto (id_funcionario,data,entrada1,saida1,entrada2,saida2,entrada3,saida3,fim_expediente,restante_dia,almoco,tempo_trabalhado) 
 values ('1', NOW(),CURTIME(),CURTIME(),CURTIME(),CURTIME(),CURTIME(),CURTIME(),CURTIME(),CURTIME(),CURTIME(),CURTIME());
+
+INSERT INTO ponto (id_funcionario,data,entrada1,saida1,entrada2,saida2,entrada3,saida3,fim_expediente,restante_dia,almoco,tempo_trabalhado) 
+values ('2', NOW(),CURTIME(),CURTIME(),CURTIME(),CURTIME(),CURTIME(),CURTIME(),CURTIME(),CURTIME(),CURTIME(),CURTIME());
+
+INSERT INTO ponto (id_funcionario,data,entrada1,saida1,entrada2,saida2,entrada3,saida3,fim_expediente,restante_dia,almoco,tempo_trabalhado) 
+values ('3', NOW(),CURTIME(),CURTIME(),CURTIME(),CURTIME(),CURTIME(),CURTIME(),CURTIME(),CURTIME(),CURTIME(),CURTIME());
+
+INSERT INTO ponto (id_funcionario,data,entrada1,saida1,entrada2,saida2,entrada3,saida3,fim_expediente,restante_dia,almoco,tempo_trabalhado) 
+values ('4', NOW(),CURTIME(),CURTIME(),CURTIME(),CURTIME(),CURTIME(),CURTIME(),CURTIME(),CURTIME(),CURTIME(),CURTIME());
+
+INSERT INTO ponto (id_funcionario,data,entrada1,saida1,entrada2,saida2,entrada3,saida3,fim_expediente,restante_dia,almoco,tempo_trabalhado) 
+values ('5', NOW(),CURTIME(),CURTIME(),CURTIME(),CURTIME(),CURTIME(),CURTIME(),CURTIME(),CURTIME(),CURTIME(),CURTIME());

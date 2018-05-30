@@ -67,7 +67,7 @@ public class Funcionario {
 	}
 	
 	@ManyToOne
-	@JoinColumn(name = "empresa_id")
+	@JoinColumn(name = "id_empresa")
 	public Empresa getEmpresa() {
 		return empresa;
 	}

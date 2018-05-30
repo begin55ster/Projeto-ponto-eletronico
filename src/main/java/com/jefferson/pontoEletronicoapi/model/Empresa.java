@@ -1,14 +1,10 @@
 package com.jefferson.pontoEletronicoapi.model;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -18,7 +14,6 @@ public class Empresa {
 	private Long id;
 	private String nome;
 	private String cnpj;
-	private List<Funcionario> funcionarios;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,15 +41,6 @@ public class Empresa {
 	
 	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
-	}
-	
-	@OneToMany(mappedBy = "empresa")
-	public List<Funcionario> getFuncionarios() {
-		return funcionarios;
-	}
-
-	public void setFuncionarios(List<Funcionario> funcionarios) {
-		this.funcionarios = funcionarios;
 	}
 
 	@Override

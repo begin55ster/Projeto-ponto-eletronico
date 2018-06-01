@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "funcionario")
@@ -30,7 +32,9 @@ public class Funcionario {
 		this.id = id;
 	}
 	
-	@Column(name="cpf", length=15, nullable=false)
+	@NotNull
+	@Size(min = 11, max = 14)
+	@Column(name="cpf", length=14, nullable=false)
 	public String getCpf() {
 		return cpf;
 	}
@@ -39,6 +43,8 @@ public class Funcionario {
 		this.cpf = cpf;
 	}
 	
+	@NotNull
+	@Size(min = 3, max = 50)
 	@Column(name="nome", length=50, nullable=false)
 	public String getNome() {
 		return nome;
@@ -48,6 +54,7 @@ public class Funcionario {
 		this.nome = nome;
 	}
 	
+	@Size(min = 12, max = 15)
 	@Column(name="pis", length=30)
 	public String getPis() {
 		return pis;
@@ -57,7 +64,8 @@ public class Funcionario {
 		this.pis = pis;
 	}
 	
-	@Column(name="email", length=35)
+	@Size(min = 5, max = 50)
+	@Column(name="email", length=50)
 	public String getEmail() {
 		return email;
 	}

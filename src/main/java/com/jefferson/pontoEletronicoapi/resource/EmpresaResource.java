@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +33,7 @@ public class EmpresaResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Empresa> criarEmpresa(@RequestBody Empresa empresa, HttpServletResponse response) {
+	public ResponseEntity<Empresa> criarEmpresa(@Valid @RequestBody Empresa empresa, HttpServletResponse response) {
 		Empresa empresaSalva = empresaRepository.save(empresa);
 		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}")
@@ -43,8 +44,9 @@ public class EmpresaResource {
 	}
 	
 	@GetMapping("/{id}")
-	public Empresa buscarEmpresaPorId(@PathVariable Long id) {
-		return empresaRepository.findOne(id);
+	public ResponseEntity<Empresa> buscarEmpresaPorId(@PathVariable Long id) {
+		Empresa empresa = empresaRepository.findOne(id);
+		return empresa != null ? ResponseEntity.ok(empresa) : ResponseEntity.notFound().build();
 	}
 	
 }

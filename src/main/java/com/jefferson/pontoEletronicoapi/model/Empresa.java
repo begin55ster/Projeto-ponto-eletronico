@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "empresa")
@@ -25,6 +27,8 @@ public class Empresa {
 		this.id = id;
 	}
 	
+	@NotNull
+	@Size(min = 4, max = 50)
 	@Column(name="nome", length=50, nullable=false)
 	public String getNome() {
 		return nome;
@@ -34,6 +38,7 @@ public class Empresa {
 		this.nome = nome;
 	}
 	
+	@Size(min = 4, max = 20)
 	@Column(name="cnpj", length=20)
 	public String getCnpj() {
 		return cnpj;

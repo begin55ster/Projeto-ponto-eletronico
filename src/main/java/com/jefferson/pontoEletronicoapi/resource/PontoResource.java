@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,7 @@ public class PontoResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Ponto> criarPonto(@RequestBody Ponto ponto, HttpServletResponse response) {
+	public ResponseEntity<Ponto> criarPonto(@Valid @RequestBody Ponto ponto, HttpServletResponse response) {
 		Ponto pontoSalvo = pontoRepository.save(ponto);
 		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}")
@@ -42,8 +43,9 @@ public class PontoResource {
 	}
 	
 	@GetMapping("/{id}")
-	public Ponto buscarPontoPeloId(@PathVariable Long id) {
-		return pontoRepository.findOne(id);
+	public ResponseEntity<Ponto> buscarPontoPeloId(@PathVariable Long id) {
+		Ponto ponto = pontoRepository.findOne(id);
+		return ponto != null ? ResponseEntity.ok(ponto) : ResponseEntity.notFound().build();
 	}
 
 }

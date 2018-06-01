@@ -3,7 +3,7 @@ CREATE TABLE funcionario (
     nome VARCHAR(50) NOT NULL,
     cpf VARCHAR(15) NOT NULL,
     pis VARCHAR(30),
-    email VARCHAR(35),
+    email VARCHAR(50),
     id_empresa BIGINT(20) NOT NULL,
     FOREIGN KEY (id_empresa) REFERENCES empresa(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;

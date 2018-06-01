@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,7 @@ public class FuncionarioResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Funcionario> criarFuncionario(@RequestBody Funcionario funcionario, HttpServletResponse response) {
+	public ResponseEntity<Funcionario> criarFuncionario(@Valid @RequestBody Funcionario funcionario, HttpServletResponse response) {
 		Funcionario funcionarioSalvo = funcionarioRepository.save(funcionario);
 		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}")
@@ -42,8 +43,9 @@ public class FuncionarioResource {
 	}
 	
 	@GetMapping("/{id}")
-	public Funcionario buscarFuncionarioPeloId(@PathVariable Long id) {
-		return funcionarioRepository.findOne(id);
+	public ResponseEntity<Funcionario> buscarFuncionarioPeloId(@PathVariable Long id) {
+		Funcionario funcionario = funcionarioRepository.findOne(id);
+		return funcionario != null ? ResponseEntity.ok(funcionario) : ResponseEntity.notFound().build();
 	}
 
 }

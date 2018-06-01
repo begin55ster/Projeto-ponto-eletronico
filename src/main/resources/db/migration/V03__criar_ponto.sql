@@ -13,7 +13,7 @@ CREATE TABLE ponto (
     almoco TIME,
     tempo_trabalhado TIME,
     FOREIGN KEY (id_funcionario) REFERENCES funcionario(id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
 
 
 INSERT INTO ponto (id_funcionario,data,entrada1,saida1,entrada2,saida2,entrada3,saida3,fim_expediente,restante_dia,almoco,tempo_trabalhado) 

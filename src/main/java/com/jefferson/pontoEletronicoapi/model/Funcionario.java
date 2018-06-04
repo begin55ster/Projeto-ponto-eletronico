@@ -74,6 +74,7 @@ public class Funcionario {
 		this.email = email;
 	}
 	
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_empresa")
 	public Empresa getEmpresa() {

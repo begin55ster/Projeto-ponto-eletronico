@@ -47,6 +47,22 @@ public class Empresa {
 	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
 	}
+	
+	public enum Fields {
+		NOME("nome"),
+		CNPJ("cnpj");
+		
+		private String fields;
+		
+		private Fields(String fields) {
+			this.fields = fields;
+		}
+		
+		@Override
+		public String toString() {
+			return fields;
+		}
+	}
 
 	@Override
 	public int hashCode() {
@@ -77,9 +93,6 @@ public class Empresa {
 		}
 		return true;
 	}
-	
-	
-	
 	
 
 }

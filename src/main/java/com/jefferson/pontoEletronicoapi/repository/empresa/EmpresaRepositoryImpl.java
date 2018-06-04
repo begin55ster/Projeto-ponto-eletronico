@@ -43,17 +43,26 @@ public class EmpresaRepositoryImpl implements EmpresaRepositoryQuery {
 	private Predicate[] criarRestricoes(EmpresaFilter empresaFilter, CriteriaBuilder builder, Root<Empresa> root) {
 		List<Predicate> predicates = new ArrayList<>();
 		
-		if(!StringUtils.isEmpty(empresaFilter.getNome())) {
-			predicates.add(builder.like(
-					builder.lower(root.get(Empresa.Fields.NOME.toString())), "%" + empresaFilter.getNome().toLowerCase() + "%"));
-		}
+		filtrarCampoNome(empresaFilter, builder, root, predicates);
+		filtrarCampoCnpj(empresaFilter, builder, root, predicates);
 		
+		return predicates.toArray(new Predicate[predicates.size()]);
+	}
+
+	private void filtrarCampoCnpj(EmpresaFilter empresaFilter, CriteriaBuilder builder, Root<Empresa> root,
+			List<Predicate> predicates) {
 		if(!StringUtils.isEmpty(empresaFilter.getCnpj())) {
 			predicates.add(builder.like(
 					builder.lower(root.get(Empresa.Fields.CNPJ.toString())), "%" + empresaFilter.getCnpj().toLowerCase() + "%"));
 		}
-		
-		return predicates.toArray(new Predicate[predicates.size()]);
+	}
+
+	private void filtrarCampoNome(EmpresaFilter empresaFilter, CriteriaBuilder builder, Root<Empresa> root,
+			List<Predicate> predicates) {
+		if(!StringUtils.isEmpty(empresaFilter.getNome())) {
+			predicates.add(builder.like(
+					builder.lower(root.get(Empresa.Fields.NOME.toString())), "%" + empresaFilter.getNome().toLowerCase() + "%"));
+		}
 	}
 
 }

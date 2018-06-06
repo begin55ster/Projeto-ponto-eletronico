@@ -84,6 +84,23 @@ public class Funcionario {
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
 	}
+	
+	public enum Fields {
+		NOME("nome"),
+		CPF("cpf"),
+		EMPRESA("empresa");
+		
+		private String fields;
+		
+		private Fields(String fields) {
+			this.fields = fields;
+		}
+		
+		@Override
+		public String toString() {
+			return fields;
+		}
+	}
 
 	@Override
 	public int hashCode() {

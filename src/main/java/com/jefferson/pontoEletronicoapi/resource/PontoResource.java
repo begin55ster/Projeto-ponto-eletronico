@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jefferson.pontoEletronicoapi.event.RecursoCriadoEvent;
 import com.jefferson.pontoEletronicoapi.model.Ponto;
 import com.jefferson.pontoEletronicoapi.repository.PontoRepository;
+import com.jefferson.pontoEletronicoapi.repository.filter.PontoFilter;
 
 @RestController
 @RequestMapping("/pontos")
@@ -35,8 +36,8 @@ public class PontoResource {
 	private ApplicationEventPublisher publisher;
 	
 	@GetMapping
-	public List<Ponto> listarTodos() {
-		return pontoRepository.findAll();
+	public List<Ponto> listarTodos(PontoFilter pontoFilter) {
+		return pontoRepository.filtrar(pontoFilter);
 	}
 	
 	@PostMapping

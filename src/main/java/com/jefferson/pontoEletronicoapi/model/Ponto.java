@@ -150,6 +150,20 @@ public class Ponto {
 	public void setTempoTrabalhado(LocalTime tempoTrabalhado) {
 		this.tempoTrabalhado = tempoTrabalhado;
 	}
+	
+	public enum Field {
+		FUNCIONARIO("funcionario");
+		
+		private String fields;
+		
+		private Field(String fields) {
+			this.fields = fields;
+		}
+		
+		public String toString() {
+			return fields;
+		}
+	}
 
 	@Override
 	public int hashCode() {

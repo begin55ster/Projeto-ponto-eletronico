@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jefferson.pontoEletronicoapi.event.RecursoCriadoEvent;
 import com.jefferson.pontoEletronicoapi.model.Funcionario;
 import com.jefferson.pontoEletronicoapi.repository.FuncionarioRepository;
+import com.jefferson.pontoEletronicoapi.repository.filter.FuncionarioFilter;
 
 @RestController
 @RequestMapping("/funcionarios")
@@ -35,8 +36,8 @@ public class FuncionarioResource {
 	private ApplicationEventPublisher publisher;
 	
 	@GetMapping
-	public List<Funcionario> listarTodos() {
-		return funcionarioRepository.findAll();
+	public List<Funcionario> listarTodos(FuncionarioFilter funcionarioFilter) {
+		return funcionarioRepository.filtrar(funcionarioFilter);
 	}
 	
 	@PostMapping

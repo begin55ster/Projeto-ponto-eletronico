@@ -1,13 +1,13 @@
 package com.jefferson.pontoEletronicoapi.resource;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,8 +37,8 @@ public class EmpresaResource {
 	private ApplicationEventPublisher publisher;
 
 	@GetMapping
-	public List<Empresa> listarTodos(EmpresaFilter empresaFilter) {
-		return empresaRepository.filtrar(empresaFilter);
+	public Page<Empresa> listarTodos(EmpresaFilter empresaFilter, Pageable pageable) {
+		return empresaRepository.filtrar(empresaFilter, pageable);
 	}
 	
 	@PostMapping

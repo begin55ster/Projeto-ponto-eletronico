@@ -1,12 +1,13 @@
 package com.jefferson.pontoEletronicoapi.repository.empresa;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import com.jefferson.pontoEletronicoapi.model.Empresa;
 import com.jefferson.pontoEletronicoapi.repository.filter.EmpresaFilter;
 
 public interface EmpresaRepositoryQuery {
 	
-	public List<Empresa> filtrar(EmpresaFilter empresaFilter);
+	public Page<Empresa> filtrar(EmpresaFilter empresaFilter, Pageable pageable);
 
 }

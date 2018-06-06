@@ -1,13 +1,13 @@
 package com.jefferson.pontoEletronicoapi.resource;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,8 +36,8 @@ public class FuncionarioResource {
 	private ApplicationEventPublisher publisher;
 	
 	@GetMapping
-	public List<Funcionario> listarTodos(FuncionarioFilter funcionarioFilter) {
-		return funcionarioRepository.filtrar(funcionarioFilter);
+	public Page<Funcionario> listarTodos(FuncionarioFilter funcionarioFilter, Pageable pageable) {
+		return funcionarioRepository.filtrar(funcionarioFilter, pageable);
 	}
 	
 	@PostMapping

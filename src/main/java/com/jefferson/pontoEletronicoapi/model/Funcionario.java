@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -21,6 +22,7 @@ public class Funcionario {
 	private String pis;
 	private String email;
 	private Empresa empresa;
+	private Usuario usuario;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -85,9 +87,20 @@ public class Funcionario {
 		this.empresa = empresa;
 	}
 	
+	@OneToOne
+	@JoinColumn(name="id_usuario")
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 	public enum Fields {
 		NOME("nome"),
 		CPF("cpf"),
+		FUNCIONARIO("usuario"),
 		EMPRESA("empresa");
 		
 		private String fields;

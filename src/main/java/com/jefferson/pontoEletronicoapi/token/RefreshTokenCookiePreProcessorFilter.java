@@ -41,14 +41,6 @@ public class RefreshTokenCookiePreProcessorFilter implements Filter {
 		}
 		chain.doFilter(req, response);
 	}
-
-	@Override
-	public void destroy() {
-	}
-	
-	@Override
-	public void init(FilterConfig arg0) throws ServletException {
-	}
 	
 	static class MyServletRequesWrapper extends HttpServletRequestWrapper {
 		
@@ -66,6 +58,14 @@ public class RefreshTokenCookiePreProcessorFilter implements Filter {
 			map.setLocked(true);
 			return map;
 		}
+	}
+	
+	@Override
+	public void destroy() {
+	}
+	
+	@Override
+	public void init(FilterConfig arg0) throws ServletException {
 	}
 
 }

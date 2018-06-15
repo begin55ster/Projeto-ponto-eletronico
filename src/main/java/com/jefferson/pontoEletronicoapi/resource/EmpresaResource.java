@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,11 +38,13 @@ public class EmpresaResource {
 	private ApplicationEventPublisher publisher;
 
 	@GetMapping
+	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_EMPRESA') and #oauth2.hasScope('read')")
 	public Page<Empresa> listarTodos(EmpresaFilter empresaFilter, Pageable pageable) {
 		return empresaRepository.filtrar(empresaFilter, pageable);
 	}
 	
 	@PostMapping
+	@PreAuthorize("hasAuthority('ROLE_CADASTRAR_EMPRESA') and #oauth2.hasScope('write')")
 	public ResponseEntity<Empresa> criarEmpresa(@Valid @RequestBody Empresa empresa, HttpServletResponse response) {
 		Empresa empresaSalva = empresaRepository.save(empresa);
 		publisher.publishEvent(new RecursoCriadoEvent(this, response, empresaSalva.getId()));
@@ -49,18 +52,21 @@ public class EmpresaResource {
 	}
 	
 	@GetMapping("/{id}")
+	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_EMPRESA') and #oauth2.hasScope('read')")
 	public ResponseEntity<Empresa> buscarEmpresaPorId(@PathVariable Long id) {
 		Empresa empresa = empresaRepository.findOne(id);
 		return empresa != null ? ResponseEntity.ok(empresa) : ResponseEntity.notFound().build();
 	}
 	
 	@DeleteMapping("/{id}")
+	@PreAuthorize("hasAuthority('ROLE_REMOVER_EMPRESA') and #oauth2.hasScope('delete')")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void removerEmpresa(@PathVariable Long id) {
 		empresaRepository.delete(id);
 	}
 	
 	@PutMapping("/{id}")
+	@PreAuthorize("hasAuthority('ROLE_CADASTRAR_EMPRESA') and #oauth2.hasScope('write')")
 	public ResponseEntity<Empresa> atualizarEmpresa(@PathVariable Long id, @Valid @RequestBody Empresa empresa) {
 		Empresa empresaSalva = empresaRepository.findOne(id);
 		BeanUtils.copyProperties(empresa, empresaSalva, "id");

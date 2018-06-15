@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,11 +37,13 @@ public class FuncionarioResource {
 	private ApplicationEventPublisher publisher;
 	
 	@GetMapping
+	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_FUNCIONARIO') and #oauth2.hasScope('read')")
 	public Page<Funcionario> listarTodos(FuncionarioFilter funcionarioFilter, Pageable pageable) {
 		return funcionarioRepository.filtrar(funcionarioFilter, pageable);
 	}
 	
 	@PostMapping
+	@PreAuthorize("hasAuthority('ROLE_CADASTRAR_FUNCIONARIO') and #oauth2.hasScope('read')")
 	public ResponseEntity<Funcionario> criarFuncionario(@Valid @RequestBody Funcionario funcionario, HttpServletResponse response) {
 		Funcionario funcionarioSalvo = funcionarioRepository.save(funcionario);
 		publisher.publishEvent(new RecursoCriadoEvent(this, response, funcionarioSalvo.getId()));
@@ -48,18 +51,21 @@ public class FuncionarioResource {
 	}
 	
 	@GetMapping("/{id}")
+	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_FUNCIONARIO') and #oauth2.hasScope('read')")
 	public ResponseEntity<Funcionario> buscarFuncionarioPeloId(@PathVariable Long id) {
 		Funcionario funcionario = funcionarioRepository.findOne(id);
 		return funcionario != null ? ResponseEntity.ok(funcionario) : ResponseEntity.notFound().build();
 	}
 	
 	@DeleteMapping("/{id}")
+	@PreAuthorize("hasAuthority('ROLE_REMOVER_FUNCIONARIO') and #oauth2.hasScope('read')")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void removerFuncionario(@PathVariable Long id) {
 		funcionarioRepository.delete(id);
 	}
 	
 	@PutMapping("/{id}")
+	@PreAuthorize("hasAuthority('ROLE_CADASTRAR_FUNCIONARIO') and #oauth2.hasScope('read')")
 	public ResponseEntity<Funcionario> atualizarFuncionario(@PathVariable Long id, @Valid @RequestBody Funcionario funcionario) {
 		Funcionario funcionarioSalvo = funcionarioRepository.findOne(id);
 		BeanUtils.copyProperties(funcionario, funcionarioSalvo, "id");
